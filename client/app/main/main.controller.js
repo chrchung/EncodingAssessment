@@ -1,11 +1,18 @@
 'use strict';
 
 angular.module('encodingAssessmentApp')
-  .controller('MainCtrl', function ($scope, $http) {
-    $scope.awesomeThings = [];
+  .controller('MainCtrl', function ($scope, $http, Restangular) {
+    $scope.taken = false;
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });
+
+    $scope.addParticipant = function () {
+      Restangular.all('api/participants/new').post({username: $scope.username}).then(function (serverJson) {
+        if (serverJson == 'name taken') {
+          $scope.taken = true;
+        } else {
+          $state.go('training', {id : 1});
+        };
+      });
+    };
 
   });

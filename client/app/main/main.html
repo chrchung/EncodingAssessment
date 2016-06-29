@@ -5,6 +5,23 @@
   <br>
   <br>
   <div class="text-center">
-    <button ui-sref="training" class="ui basic secondary button">Click to start</button>
+    <div class="ui negative message transition hidden">
+      <i class="close icon"></i>
+      <div class="header">
+        This e-mail is already in our system
+      </div>
+      <p>Please enter another one</p>
+    </div>
+    <br>
+
+    <form class="ui form">
+      <div class="field">
+        <label>Please enter an e-mail address:</label>
+        <input type="text" ng-model="email" placeholder="E-mail">
+      </div>
+      <button ng-click="addParticipant" class="ui basic secondary button">Start</button>
+
+    </form>
+
   </div>
 </div>

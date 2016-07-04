@@ -61,4 +61,8 @@ angular.module('encodingAssessmentApp')
       .checkbox()
     ;
 
+    $('.bar').progress({
+      percent: parseInt($stateParams.id)/10
+    });
+
   });

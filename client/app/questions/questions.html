@@ -1,3 +1,77 @@
-<div class="col-md-12">
-This is the questions view.
+<div class="container">
+  <br>
+
+  <div class="row">
+    <h1>Please select the most similar pair</h1>
+    <br>
+    <div ng-show="tooMany" class="ui negative message">
+      <div class="header">
+        Sorry, you must select exactly two items.
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-2">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox">
+            <input ng-model="object0" type="checkbox" tabindex="0" class="hidden">
+            <label>Checkbox</label>
+          </div>
+        </div>
+      </div>
+      <img ng-src="{{ question.objects[0] }}"/>
+    </div>
+    <div class="col-xs-2">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox">
+            <input ng-model="object1" type="checkbox" tabindex="0" class="hidden">
+            <label>Checkbox</label>
+          </div>
+        </div>
+      </div>
+      <img ng-src="{{ question.objects[1] }}"/>
+    </div>
+    <div class="col-xs-2">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox">
+            <input ng-model="object2" type="checkbox" tabindex="0" class="hidden">
+            <label>Checkbox</label>
+          </div>
+        </div>
+      </div>
+      <img ng-src="{{ question.objects[2] }}"/>
+    </div>
+    <div class="col-xs-2">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox">
+            <input ng-model="object3" type="checkbox" tabindex="0" class="hidden">
+            <label>Checkbox</label>
+          </div>
+        </div>
+      </div>
+      <img ng-src="{{ question.objects[3] }}"/>
+    </div>
+    <div class="col-xs-2">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox">
+            <input ng-model="object4" type="checkbox" tabindex="0" class="hidden">
+            <label>Checkbox</label>
+          </div>
+        </div>
+      </div>
+      <img ng-src="{{ question.objects[4] }}"/>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <button ng-click="next()" class="ui basic button">Next</button>
+  </div>
 </div>

@@ -6,7 +6,8 @@ angular.module('encodingAssessmentApp', [
   'ngSanitize',
   'ui.router',
   'ui.bootstrap',
-  'restangular'
+  'restangular',
+  'ngCookies'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider

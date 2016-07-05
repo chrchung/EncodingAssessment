@@ -1,12 +1,6 @@
 'use strict';
 
-// Development specific configuration
-// ==================================
 module.exports = {
-  // MongoDB connection options
-  mongo: {
-    uri: 'mongodb://localhost/encodingassessment-dev'
-  },
-
-  seedDB: true
+  PARSE_APPID: '7BQz6HPpIrhKmx5kfFHLbd5fWdZoBHqMAx0Fr3OM',
+  PARSE_JSKEY: 'OO48FjpEAgGhr2S9bQj7IGupKBw9LZtkEMcp0vah'
 };

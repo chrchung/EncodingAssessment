@@ -1,13 +1,16 @@
+'use strict';
+
 var _ = require('lodash');
 var config = require('../../config/environment');
-// var Parse = require('parse/node').Parse;
-// Parse.initialize(config.PARSE_APPID, config.PARSE_JSKEY);
+var Parse = require('parse/node').Parse;
+Parse.initialize(config.PARSE_APPID, config.PARSE_JSKEY);
+Parse.serverURL = 'https://parseapi.back4app.com'
 
 
 exports.addParticipant = function (req, res) {
-  var Answer = Parse.Object.extend('Answer');
+  var Answers = Parse.Object.extend('Answers');
   var username = req.body.username;
-  var query = new Parse.Query(Answer);
+  var query = new Parse.Query(Answers);
 
   query.equalTo('username', username);
   query.find({
@@ -16,8 +19,9 @@ exports.addParticipant = function (req, res) {
         res.send('name taken').end();
       } else {
 
-        var newAnswer = new Answer();
+        var newAnswer = new Answers();
         newAnswer.set('username', username);
+        newAnswer.set('answers', []);
 
         newAnswer.save().then(function (result) {
             res.json(result);
@@ -26,9 +30,7 @@ exports.addParticipant = function (req, res) {
             console.log(err);
             res.status(500).end();
           });
-
-      }
-      ;
+      };
     }
     ,
     error: function (error) {
@@ -40,27 +42,39 @@ exports.addParticipant = function (req, res) {
 };
 
 exports.addAnswer = function(req, res) {
-  var answers = req.body.answers;
-  var objectId = req.body.objectId;
+  var Answers = Parse.Object.extend('Answers');
 
-  var Answer = Parse.Object.extend('Answer');
-  var newAnswer = new Answer();
-  newAnswer.id = objectId;
-  newAnswer.set('answers', answers);
-  newAnswer.set('numAliens', answers.length);
+  var query = new Parse.Query(Answers);
 
-  newAnswer.save().then(function (result) {
-      res.status(200).end();
-    },
-    function (err) {
-      console.log(err);
+  query.equalTo('username',  req.body.username);
+  query.first({
+    success: function (result) {
+      result.attributes.answers.push({question: req.body.question, answer: req.body.answer});
+
+      result.set('answers', result.attributes.answers);
+
+      result.save().then(function (result) {
+          res.status(200).end();
+        },
+        function (err) {
+          console.log(err);
+          res.status(500).end();
+        });
+
+    }
+    ,
+    error: function (error) {
+      console.log(error);
       res.status(500).end();
-    });
+    }
+  });
+
+
 };
 
 exports.getAnswers = function (req, res) {
-  var Answer = Parse.Object.extend('Answer');
-  var query = new Parse.Query(Answer);
+  var Answers = Parse.Object.extend('Answers');
+  var query = new Parse.Query(Answers);
 
   query.descending('numAliens');
   query.find({

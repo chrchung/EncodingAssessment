@@ -15,6 +15,11 @@ var server = require('http').createServer(app);
 require('./config/express')(app);
 require('./routes')(app);
 
+var session = require('express-session');
+app.use(session({secret: 'ssshhhhh', resave: true, saveUninitialized: true}));
+
+
+
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));

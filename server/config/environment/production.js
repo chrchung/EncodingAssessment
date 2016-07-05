@@ -1,23 +1,6 @@
 'use strict';
 
-// Production specific configuration
-// =================================
 module.exports = {
-  // Server IP
-  ip:       process.env.OPENSHIFT_NODEJS_IP ||
-            process.env.IP ||
-            undefined,
-
-  // Server port
-  port:     process.env.OPENSHIFT_NODEJS_PORT ||
-            process.env.PORT ||
-            8080,
-
-  // MongoDB connection options
-  mongo: {
-    uri:    process.env.MONGOLAB_URI ||
-            process.env.MONGOHQ_URL ||
-            process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
-            'mongodb://localhost/encodingassessment'
-  }
+  PARSE_APPID: '7BQz6HPpIrhKmx5kfFHLbd5fWdZoBHqMAx0Fr3OM',
+  PARSE_JSKEY: 'OO48FjpEAgGhr2S9bQj7IGupKBw9LZtkEMcp0vah'
 };

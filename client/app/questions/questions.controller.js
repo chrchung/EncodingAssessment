@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('encodingAssessmentApp')
-  .controller('QuestionsCtrl', function ($scope, $stateParams, Restangular) {
+  .controller('QuestionsCtrl', function ($scope, $stateParams, $cookies, $state, Restangular) {
     $scope.question = null;
     $scope.tooMany = false;
 
@@ -40,7 +40,7 @@ angular.module('encodingAssessmentApp')
       if (!$scope.tooMany) {
 
         Restangular.all('/api/questions/').post(
-          {question: $stateParams.id,  answer: [$scope.object0, $scope.object1, $scope.object2, $scope.object3, $scope.object4]}).then(
+          {user: $cookies.get('user'), question: $stateParams.id,  answer: [$scope.object0, $scope.object1, $scope.object2, $scope.object3, $scope.object4]}).then(
           (function (data) {
             $state.go('questions', {id: parseInt($stateParams.id) + 1});
           }), function (err) {

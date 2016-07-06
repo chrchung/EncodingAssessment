@@ -5,18 +5,15 @@
   <br>
   <br>
   <div class="text-center">
-    <div class="ui negative message transition hidden">
-      <i class="close icon"></i>
-      <div class="header">
-        This e-mail is already in our system
-      </div>
-      <p>Please enter another one</p>
-    </div>
-    <br>
-
     <form class="ui form">
       <div class="field">
-        <label>Please enter an e-mail address:</label>
+        <h1>Please enter an e-mail address:</h1>
+        <div ng-show="taken" class="ui negative message">
+          <div class="header">
+            This e-mail is already in use.
+          </div>
+          <p>Please enter another one.</p>
+        </div>
         <input type="text" ng-model="email" placeholder="E-mail">
       </div>
       <button ng-click="addParticipant()" class="ui basic secondary button">Start</button>

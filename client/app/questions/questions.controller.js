@@ -5,6 +5,12 @@ angular.module('encodingAssessmentApp')
     $scope.question = null;
     $scope.tooMany = false;
 
+    $scope.object1 = false;
+    $scope.object2 = false;
+    $scope.object3 = false;
+    $scope.object4 = false;
+    $scope.object5 = false;
+
     $scope.validate = function() {
       var count = 0;
 
@@ -28,7 +34,7 @@ angular.module('encodingAssessmentApp')
         count ++;
       }
 
-      if (count > 2) {
+      if (count != 2) {
         $scope.tooMany = true;
       } else {
         $scope.tooMany = false;
@@ -39,8 +45,8 @@ angular.module('encodingAssessmentApp')
       $scope.validate();
       if (!$scope.tooMany) {
 
-        Restangular.all('/api/questions/').post(
-          {user: $cookies.get('user'), question: $stateParams.id,  answer: [$scope.object0, $scope.object1, $scope.object2, $scope.object3, $scope.object4]}).then(
+        Restangular.all('/api/participants/').post(
+          {username: $cookies.get('user'), question: $stateParams.id,  answer: [$scope.object1, $scope.object2, $scope.object3, $scope.object4, $scope.object5]}).then(
           (function (data) {
             $state.go('questions', {id: parseInt($stateParams.id) + 1});
           }), function (err) {
@@ -53,12 +59,58 @@ angular.module('encodingAssessmentApp')
     }
 
     Restangular.all('api/questions/').get($stateParams.id).then(function (serverJson) {
-      $scope.question = serverJson.data;
+      $scope.question = serverJson;
     });
 
 
-    $('.ui.checkbox')
-      .checkbox()
+    $('.ui.checkbox.check1')
+      .checkbox({
+        onChecked: function() {
+          $scope.object1 = true;
+        },
+        onUnchecked: function() {
+          $scope.object1 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check2')
+      .checkbox({
+        onChecked: function() {
+          $scope.object2 = true;
+        },
+        onUnchecked: function() {
+          $scope.object2 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check3')
+      .checkbox({
+        onChecked: function() {
+          $scope.object3 = true;
+        },
+        onUnchecked: function() {
+          $scope.object3 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check4')
+      .checkbox({
+        onChecked: function() {
+          $scope.object4 = true;
+        },
+        onUnchecked: function() {
+          $scope.object4 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check5')
+      .checkbox({
+        onChecked: function() {
+          $scope.object5 = true;
+        },
+        onUnchecked: function() {
+          $scope.object5 = false;
+        }})
     ;
 
     $('.bar').progress({

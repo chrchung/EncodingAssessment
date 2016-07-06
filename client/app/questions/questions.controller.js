@@ -14,10 +14,6 @@ angular.module('encodingAssessmentApp')
     $scope.validate = function() {
       var count = 0;
 
-      if ($scope.object0 == true) {
-        count ++;
-      }
-
       if ($scope.object1 == true) {
         count ++;
       }
@@ -31,6 +27,10 @@ angular.module('encodingAssessmentApp')
       }
 
       if ($scope.object4 == true) {
+        count ++;
+      }
+
+      if ($scope.object5 == true) {
         count ++;
       }
 

@@ -46,9 +46,9 @@ angular.module('encodingAssessmentApp')
       if (!$scope.tooMany) {
 
         Restangular.all('/api/participants/').post(
-          {username: $cookies.get('user'), question: $stateParams.id,  answer: [$scope.object1, $scope.object2, $scope.object3, $scope.object4, $scope.object5]}).then(
+          {mode: $stateParams.mode, username: $cookies.get('user'), question: $stateParams.id,  answer: [$scope.object1, $scope.object2, $scope.object3, $scope.object4, $scope.object5]}).then(
           (function (data) {
-            $state.go('questions', {id: parseInt($stateParams.id) + 1});
+            $state.go('questions', {mode: $stateParams.mode, id: parseInt($stateParams.id) + 1});
           }), function (err) {
           });
       }
@@ -58,7 +58,7 @@ angular.module('encodingAssessmentApp')
       $state.go('end');
     }
 
-    Restangular.all('api/questions/').get($stateParams.id).then(function (serverJson) {
+    Restangular.all('api/questions/').get($stateParams.mode + '/' + $stateParams.id).then(function (serverJson) {
       $scope.question = serverJson;
     });
 

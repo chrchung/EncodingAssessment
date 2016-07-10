@@ -5,6 +5,6 @@ var controller = require('./trainingquestion.controller');
 
 var router = express.Router();
 
-router.get('/:id', controller.getQuestion);
+router.get('/:mode/:id', controller.getQuestion);
 
 module.exports = router;

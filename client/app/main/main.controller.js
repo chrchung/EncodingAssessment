@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('encodingAssessmentApp')
-  .controller('MainCtrl', function ($scope, $http, $state, Restangular, $cookies) {
+  .controller('MainCtrl', function ($scope, $http, $stateParams, $state, Restangular, $cookies) {
     $scope.taken = false;
 
 
@@ -11,7 +11,7 @@ angular.module('encodingAssessmentApp')
           $scope.taken = true;
         } else {
           $cookies.put('user', serverJson.username);
-          $state.go('training', {id : 1});
+          $state.go('training', {id : 1, mode: $stateParams.mode});
         };
       });
     };

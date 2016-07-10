@@ -13,6 +13,7 @@ exports.getQuestion = function(req, res) {
   var query = new Parse.Query(Questions);
 
   query.equalTo('questionNumber', parseInt(req.params.id));
+  query.equalTo('mode', req.params.mode);
   query.first({
     success: function (results) {
       res.json(results);

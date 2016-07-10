@@ -49,9 +49,19 @@ exports.addAnswer = function(req, res) {
   query.equalTo('username',  req.body.username);
   query.first({
     success: function (result) {
-      result.attributes.answers.push({question: req.body.question, answer: req.body.answer});
+
+      if (req.body.question == "training1") {
+        req.body.question = 0;
+      } else if (req.body.question == "training2") {
+        req.body.question = 1;
+      } else {
+        req.body.question = parseInt(req.body.question) + 1;
+      }
+
+      result.attributes.answers[req.body.question] = req.body.answer;
 
       result.set('answers', result.attributes.answers);
+      result.set('mode', req.body.mode);
 
       result.save().then(function (result) {
           res.status(200).end();

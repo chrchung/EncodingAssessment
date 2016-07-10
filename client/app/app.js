@@ -11,7 +11,7 @@ angular.module('encodingAssessmentApp', [
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
-      .otherwise('/');
+      .otherwise('/grid');
 
     $locationProvider.html5Mode(true);
   });

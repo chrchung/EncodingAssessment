@@ -2,7 +2,6 @@
 
 angular.module('encodingAssessmentApp')
   .controller('QuestionsCtrl', function ($scope, $stateParams, $cookies, $state, Restangular) {
-
     $scope.mode = $stateParams.mode;
 
     $scope.question = null;
@@ -13,6 +12,48 @@ angular.module('encodingAssessmentApp')
     $scope.object3 = false;
     $scope.object4 = false;
     $scope.object5 = false;
+
+
+    var scores = {1 : {1:[[3, 5], [2, 3], [1, 3], [2, 4], [1, 2], [2, 5], [1, 5], [1, 4], [4, 5]],
+      2:[[3, 4]]},
+      2: {1:[[3, 5], [2, 5], [1, 5], [4, 5]],
+        2:[[2, 3]],
+        3:[[1, 3], [2, 4], [1, 2]],
+        4:[[1, 4]],
+        5:[[3, 4]]},
+      3 : {1:[[3, 4], [2, 4], [1, 4], [4, 5]],
+        2:[[3, 5], [2, 3], [1, 3], [2, 5], [1, 5]],
+        3:[[1, 2]]},
+      4 : {1:[[3, 4], [3, 5], [2, 3], [1, 3], [2, 4], [1, 2], [2, 5], [1, 4], [4, 5]],
+        2:[[1, 5]]},
+      5 : {1:[[3, 5], [2, 5], [1, 5], [4, 5]],
+        2:[[2, 4]],
+        3:[[3, 4]],
+        4:[[1, 2]],
+        5:[[1, 3]],
+        6:[[1, 4]],
+        7:[[2, 3]]},
+      6 : {1:[[3, 4], [2, 4], [4, 5]],
+        2:[[1, 4]],
+        3:[[2, 3], [2, 5]],
+        4:[[1, 2]],
+        5:[[1, 3], [1, 5]],
+        6:[[3, 5]]},
+      7 : {1:[[3, 5], [2, 5], [1, 5], [4, 5]],
+        2:[[3, 4], [2, 3], [1, 3]],
+        3:[[1, 2], [1, 4]],
+        4:[[2, 4]]},
+      8 : {1:[[3, 4], [2, 4], [1, 4], [4, 5]],
+        2:[[2, 3], [1, 3]],
+        3:[[3, 5]],
+        4:[[1, 2]],
+        5:[[1, 5]],
+        6:[[2, 5]]},
+      9 : {1:[[3, 4], [3, 5], [1, 3], [2, 4], [1, 2], [2, 5]],
+        2:[[1, 5], [1, 4]],
+        3:[[2, 3]],
+        4:[[4, 5]]}
+    };
 
     $scope.validate = function() {
       var count = 0;
@@ -42,12 +83,12 @@ angular.module('encodingAssessmentApp')
       } else {
         $scope.tooMany = false;
       }
-    }
+    };
 
     $scope.next = function() {
       $scope.validate();
       if (!$scope.tooMany) {
-
+        calculateScore();
         Restangular.all('/api/participants/').post(
           {mode: $stateParams.mode, username: $cookies.get('user'), question: $stateParams.id,  answer: [$scope.object1, $scope.object2, $scope.object3, $scope.object4, $scope.object5]}).then(
           (function (data) {
@@ -55,10 +96,54 @@ angular.module('encodingAssessmentApp')
           }), function (err) {
           });
       }
+    };
+
+    var parseAns = function() {
+      var answer = [$scope.object1, $scope.object2, $scope.object3, $scope.object4, $scope.object5];
+      var res = [];
+
+      var i;
+      for (i = 0; i < answer.length; i ++) {
+        if (answer[i] == true && res.length < 2) {
+          res.add(i + 1);
+        }
+      }
+      return res;
+    };
+
+    var arraysEqual = function(arr1, arr2) {
+      if(arr1.length !== arr2.length)
+        return false;
+      for(var i = arr1.length; i--;) {
+        if(arr1[i] !== arr2[i])
+          return false;
+      }
+
+      return true;
     }
 
+    var calculateScore = function()  {
+      var thisQuestionScores = scores[parseInt($stateParams.id)];
+      var answer = parseAns();
+      var score = null;
+
+
+      for(var key in thisQuestionScores){
+        if(arraysEqual(thisQuestionScores[key], answer)){
+          score = key;
+        }
+      }
+      $cookies.put('score',  (parseInt($cookies.get('score')) + score).toString());
+    };
+
+
     if ($stateParams.id == 10) {
-      $state.go('end');
+      Restangular.all('/api/participants/score').post(
+        {mode: $stateParams.mode, username: $cookies.get('user'), score: $cookies.get('score')}).then(
+        (function (data) {
+          $state.go('end');
+        }), function (err) {
+        });
     }
 
     Restangular.all('api/questions/').get($stateParams.mode + '/' + $stateParams.id).then(function (serverJson) {

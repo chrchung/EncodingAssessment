@@ -11,6 +11,7 @@ angular.module('encodingAssessmentApp')
           $scope.taken = true;
         } else {
           $cookies.put('user', serverJson.username);
+          $cookies.put('score', '0');
           $state.go('training', {id : 1, mode: $stateParams.mode});
         };
       });

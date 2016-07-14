@@ -2,5 +2,7 @@
 
 angular.module('encodingAssessmentApp')
   .controller('EndCtrl', function ($scope) {
-    $scope.message = 'Hello';
+    Restangular.all('api/participants/user').getList().then(function (serverJson) {
+      $scope.score = serverJson.score;
+    });
   });

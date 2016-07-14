@@ -86,7 +86,7 @@ exports.getAnswers = function (req, res) {
   var Answers = Parse.Object.extend('Answers');
   var query = new Parse.Query(Answers);
 
-  query.descending('numAliens');
+  query.descending('score');
   query.find({
     success: function (results) {
       res.json(results);
@@ -99,3 +99,48 @@ exports.getAnswers = function (req, res) {
   });
 };
 
+
+exports.addScore = function(req, res) {
+  var Answers = Parse.Object.extend('Answers');
+  var query = new Parse.Query(Answers);
+
+  query.equalTo('username',  req.body.username);
+  query.first({
+    success: function (result) {
+      result.set('score', req.body.score);
+
+      result.save().then(function (result) {
+          res.status(200).end();
+        },
+        function (err) {
+          console.log(err);
+          res.status(500).end();
+        });
+
+    }
+    ,
+    error: function (error) {
+      console.log(error);
+      res.status(500).end();
+    }
+  });
+
+};
+
+exports.getUser = function(req, res) {
+  var Answers = Parse.Object.extend('Answers');
+  var query = new Parse.Query(Answers);
+
+  query.equalTo('username',  req.body.username);
+  query.first({
+    success: function (result) {
+      res.json(result);
+    }
+    ,
+    error: function (error) {
+      console.log(error);
+      res.status(500).end();
+    }
+  });
+
+};

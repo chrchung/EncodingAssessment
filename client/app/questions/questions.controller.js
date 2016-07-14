@@ -2,6 +2,9 @@
 
 angular.module('encodingAssessmentApp')
   .controller('QuestionsCtrl', function ($scope, $stateParams, $cookies, $state, Restangular) {
+
+    $scope.mode = $stateParams.mode;
+
     $scope.question = null;
     $scope.tooMany = false;
 

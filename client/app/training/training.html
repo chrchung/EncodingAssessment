@@ -1,4 +1,4 @@
-<div class="container">
+<div ng-show="mode != 'bacteria'" class="container">
   <br>
 
   <div class="row">
@@ -77,5 +77,80 @@
 
   <div class="row text-center">
     <button ng-click="next()" class="ui basic secondary button">Next</button>
+  </div>
+</div>
+
+<div ng-show="mode == 'bacteria'" class="bacteria-container container">
+  <br>
+
+  <div class="row">
+    <h1 class="text-center">Sample question:</h1>
+    <h1 class="text-center">Please select the most similar pair.</h1>
+    <br>
+    <div ng-show="tooMany" class="ui negative message text-center">
+      <div class="header">
+        Sorry, you must select exactly two items.
+      </div>
+    </div>
+  </div>
+
+    <div class="text-center">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox check1">
+            <input type="checkbox">
+          </div>
+        </div>
+      </div>
+      <img class="" ng-src="{{ question.elements[0] }}"/>
+    </div>
+  <br>
+
+    <div class="text-center">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox check2">
+            <input type="checkbox">
+          </div>
+        </div>
+      </div>
+      <img class="" ng-src="{{ question.elements[1] }}"/>
+    </div>
+
+  <br>
+    <div class="text-center">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox check3">
+            <input  type="checkbox">
+          </div>
+        </div>
+      </div>
+      <img class="" ng-src="{{ question.elements[2] }}"/>
+    </div>
+
+  <br>
+    <div class="text-center">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox check4">
+            <input  type="checkbox">
+          </div>
+        </div>
+      </div>
+      <img class="" ng-src="{{ question.elements[3] }}"/>
+    </div>
+
+  <br>
+    <div class="text-center">
+      <div class="ui form">
+        <div class="inline field">
+          <div class="ui checkbox check5">
+            <input type="checkbox">
+          </div>
+        </div>
+      </div>
+      <img class="" ng-src="{{ question.elements[4] }}"/>
+    </div>
   </div>
 </div>

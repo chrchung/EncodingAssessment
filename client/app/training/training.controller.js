@@ -2,6 +2,9 @@
 
 angular.module('encodingAssessmentApp')
   .controller('TrainingCtrl', function ($scope, $state, $cookies, $stateParams, Restangular) {
+
+    $scope.mode = $stateParams.mode;
+
     $scope.question = null;
 
     $scope.object1 = false;
@@ -106,6 +109,56 @@ angular.module('encodingAssessmentApp')
     ;
 
     $('.ui.checkbox.check5')
+      .checkbox({
+        onChecked: function() {
+          $scope.object5 = true;
+        },
+        onUnchecked: function() {
+          $scope.object5 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check11')
+      .checkbox({
+        onChecked: function() {
+          $scope.object1 = true;
+        },
+        onUnchecked: function() {
+          $scope.object1 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check22')
+      .checkbox({
+        onChecked: function() {
+          $scope.object2 = true;
+        },
+        onUnchecked: function() {
+          $scope.object2 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check33')
+      .checkbox({
+        onChecked: function() {
+          $scope.object3 = true;
+        },
+        onUnchecked: function() {
+          $scope.object3 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check44')
+      .checkbox({
+        onChecked: function() {
+          $scope.object4 = true;
+        },
+        onUnchecked: function() {
+          $scope.object4 = false;
+        }})
+    ;
+
+    $('.ui.checkbox.check55')
       .checkbox({
         onChecked: function() {
           $scope.object5 = true;

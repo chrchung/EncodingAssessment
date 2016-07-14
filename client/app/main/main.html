@@ -1,4 +1,8 @@
-<div class="container">
+<div class="container text-center">
+  <br>
+  <br>
+  <br>
+  <button ui-sref="scoreboard" class="huge ui button">Go to scoreboard<i class="arrow right icon"></i></button>
   <br>
   <br>
   <br>
@@ -7,18 +11,16 @@
   <div class="text-center">
     <form class="ui form">
       <div class="field">
-        <h1>Please enter an e-mail address:</h1>
+        <h1>Please enter a name:</h1>
         <div ng-show="taken" class="ui negative message">
           <div class="header">
-            This e-mail is already in use.
+            This name is in use.
           </div>
           <p>Please enter another one.</p>
         </div>
-        <input type="text" ng-model="email" placeholder="E-mail">
+        <input type="text" ng-model="email" placeholder="Name">
       </div>
       <button ng-click="addParticipant()" class="ui basic secondary button">Start</button>
-
     </form>
-
   </div>
 </div>

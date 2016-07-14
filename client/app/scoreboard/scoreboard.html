@@ -1,0 +1,47 @@
+<div class="row">
+  <br>
+  <h1 class="text-center">Scoreboard</h1>
+  <br>
+  <div class="col-xs-3">
+  </div>
+
+  <div class="col-xs-6">
+    <table class="table table-striped">
+      <tr>
+        <th>
+          Rank
+        </th>
+        <th>
+          Username
+        </th>
+        <th>
+          Score
+        </th>
+      </tr>
+      <tr ng-repeat="answer in answers">
+        <td>
+          {{answers.indexOf(answer) + 1}}
+        </td>
+        <td>
+          {{answer.username}}
+        </td>
+        <td>
+          {{answer.score}}
+        </td>
+
+      </tr>
+
+
+    </table>
+
+  </div>
+
+  <div class="col-xs-3">
+
+  </div>
+
+
+  <br>
+  <br>
+
+</div>

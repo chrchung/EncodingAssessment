@@ -4,7 +4,7 @@ angular.module('encodingAssessmentApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('training', {
-        url: '/training/:mode/:id',
+        url: '/:mode/training/:id',
         templateUrl: 'app/training/training.html',
         controller: 'TrainingCtrl'
       });

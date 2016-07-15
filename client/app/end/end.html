@@ -4,11 +4,9 @@
   <br>
   <br>
   <br>
-  <h1>Thanks for participating! Your achieved a score of: {{ score }} / 39</h1>
+  <h1>Thanks for participating!<br> You achieved a score of: {{ score }} / 39</h1>
   <br>
   <br>
-  <h1>Click here to view the scoreboard:</h1>
-  <button ui-sref="scoreboard" class="huge ui button">Go to scoreboard<i class="arrow right icon"></i></button>
-
-
+  <h3>Click here to view the scoreboard:</h3>
+  <button ui-sref="scoreboard({mode: thisMode})" class="huge ui button">Go to scoreboard<i class="arrow right icon"></i></button>
 </div>

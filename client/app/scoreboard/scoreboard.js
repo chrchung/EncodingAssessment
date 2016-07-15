@@ -4,7 +4,7 @@ angular.module('encodingAssessmentApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('scoreboard', {
-        url: '/scoreboard',
+        url: '/:mode/scoreboard',
         templateUrl: 'app/scoreboard/scoreboard.html',
         controller: 'ScoreboardCtrl'
       });

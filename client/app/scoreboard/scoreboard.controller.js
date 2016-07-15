@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('encodingAssessmentApp')
-  .controller('ScoreboardCtrl', function ($scope) {
+  .controller('ScoreboardCtrl', function ($scope, $stateParams, Restangular) {
 
-    Restangular.all('api/participants/').getList().then(function (serverJson) {
+    Restangular.all('api/participants/' + $stateParams.mode).getList().then(function (serverJson) {
         $scope.answers = serverJson;
       });
 

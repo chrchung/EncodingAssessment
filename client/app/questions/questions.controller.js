@@ -88,7 +88,7 @@ angular.module('encodingAssessmentApp')
     $scope.next = function() {
       $scope.validate();
       if (!$scope.tooMany) {
-        calculateScore();
+        // calculateScore();
         Restangular.all('/api/participants/').post(
           {mode: $stateParams.mode, username: $cookies.get('user'), question: $stateParams.id,  answer: [$scope.object1, $scope.object2, $scope.object3, $scope.object4, $scope.object5]}).then(
           (function (data) {
@@ -98,14 +98,13 @@ angular.module('encodingAssessmentApp')
       }
     };
 
-    var parseAns = function() {
-      var answer = [$scope.object1, $scope.object2, $scope.object3, $scope.object4, $scope.object5];
+    var parseAns = function(answer) {
       var res = [];
 
       var i;
       for (i = 0; i < answer.length; i ++) {
         if (answer[i] == true && res.length < 2) {
-          res.add(i + 1);
+          res.push(i + 1);
         }
       }
       return res;
@@ -120,30 +119,52 @@ angular.module('encodingAssessmentApp')
       }
 
       return true;
-    }
+    };
 
     var calculateScore = function()  {
-      var thisQuestionScores = scores[parseInt($stateParams.id)];
-      var answer = parseAns();
-      var score = null;
+      var total = 0;
 
 
-      for(var key in thisQuestionScores){
-        if(arraysEqual(thisQuestionScores[key], answer)){
-          score = key;
+      Restangular.all('api/participants/').get($stateParams.mode + '/user/' + $cookies.get('user')).then(function (serverJson) {
+        var answers = serverJson.answers;
+
+        var k;
+        for (k = 0; k < answers.length - 2; k++) {
+          var thisQuestionScores = scores[k + 1];
+          var answer = parseAns(answers[k + 2]);
+          var score = null;
+
+
+          for (var key in thisQuestionScores) {
+            var i;
+            for (i = 0; i < thisQuestionScores[key].length; i++) {
+              if (arraysEqual(thisQuestionScores[key][i], answer)) {
+                score = key;
+                break;
+              }
+            }
+          }
+
+          total += parseInt(score);
         }
-      }
-      $cookies.put('score',  (parseInt($cookies.get('score')) + score).toString());
+
+
+        Restangular.all('/api/participants/score').post(
+          {mode: $stateParams.mode, username: $cookies.get('user'), score: total}).then(
+          (function (data) {
+            $state.go('end', {mode: $stateParams.mode});
+          }), function (err) {
+          });
+
+      });
     };
 
 
     if ($stateParams.id == 10) {
-      Restangular.all('/api/participants/score').post(
-        {mode: $stateParams.mode, username: $cookies.get('user'), score: $cookies.get('score')}).then(
-        (function (data) {
-          $state.go('end');
-        }), function (err) {
-        });
+
+      calculateScore();
+
+
     }
 
     Restangular.all('api/questions/').get($stateParams.mode + '/' + $stateParams.id).then(function (serverJson) {
@@ -201,8 +222,8 @@ angular.module('encodingAssessmentApp')
         }})
     ;
 
-    $('.bar').progress({
-      percent: parseInt($stateParams.id)/10
+    $('#prog').progress({
+      percent: parseInt($stateParams.id)/10 * 100
     });
 
   });

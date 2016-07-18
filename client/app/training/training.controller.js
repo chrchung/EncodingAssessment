@@ -4,6 +4,7 @@ angular.module('encodingAssessmentApp')
   .controller('TrainingCtrl', function ($scope, $state, $cookies, $stateParams, Restangular) {
 
     $scope.mode = $stateParams.mode;
+    $scope.showNext = false;
 
     $scope.question = null;
 

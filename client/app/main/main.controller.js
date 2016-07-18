@@ -13,7 +13,14 @@ angular.module('encodingAssessmentApp')
         } else {
           $cookies.put('user', serverJson.username);
           $cookies.put('score', '0');
-          $state.go('training', {id : 1, mode: $stateParams.mode});
+
+
+          if ($stateParams.mode == 'grid') {
+            $state.go('description', {mode : $stateParams.mode});
+          } else {
+            $state.go('training', {id : 1, mode: $stateParams.mode});
+          }
+
         };
       });
     };
